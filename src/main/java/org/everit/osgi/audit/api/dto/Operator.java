@@ -16,30 +16,22 @@
  */
 package org.everit.osgi.audit.api.dto;
 
-public class Operator {
+public enum Operator {
 
     /**
      * Operator defining "greater than".
      */
-    public static final int GT = 0;
+    GT,
     /**
      * Operator defining "equals".
      */
-    public static final int EQ = 1;
+    EQ,
     /**
      * Operator defining "less than".
      */
-    public static final int LT = 2;
+    LT,
     /**
      * Operator defining "starts with".
      */
-    public static final int STARTS_WITH = 3;
-
-    /**
-     * Default private constructor for utility class.
-     */
-    private Operator() {
-        super();
-    }
-
+    STARTS_WITH,
 }

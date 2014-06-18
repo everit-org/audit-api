@@ -16,59 +16,37 @@
  */
 package org.everit.osgi.audit.api.dto;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.Objects;
 
-public class DataFilter extends EventData {
+public class DataFilter {
 
     /**
      * Operator for the filter.
      */
-    private int operator;
-    /**
-     * Value of the filter.
-     */
-    private Date dateValue;
+    private final Operator operator;
+
+    private final EventData operand;
 
     /**
-     * Default constructor.
-     */
-    public DataFilter() {
-        super();
-        operator = Operator.EQ;
-    }
-
-    /**
-     * Gets the date value.
+     * Constructs a {@code DataFilter} with {@link Operator#EQ equivalence operator}.
      *
-     * @return The dateValue.
+     * @param operand
      */
-    public Date getDateValue() {
-        if (null != getTimestampValue()) {
-            dateValue = getTimestampValue().getTime();
-        }
-        return dateValue;
+    public DataFilter(final EventData operand) {
+        this(Operator.EQ, operand);
     }
 
-    public int getOperator() {
+    public DataFilter(final Operator operator, final EventData operand) {
+        this.operator = Objects.requireNonNull(operator, "operator cannot be null");
+        this.operand = Objects.requireNonNull(operand, "operand cannot be null");
+    }
+
+    public EventData getOperand() {
+        return operand;
+    }
+
+    public Operator getOperator() {
         return operator;
-    }
-
-    /**
-     * Sets the dateValue.
-     *
-     * @param dateValue
-     *            The value to be set.
-     */
-    public void setDateValue(final Date dateValue) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(dateValue);
-        setTimestampValue(c);
-        this.dateValue = dateValue;
-    }
-
-    public void setOperator(final int operator) {
-        this.operator = operator;
     }
 
 }

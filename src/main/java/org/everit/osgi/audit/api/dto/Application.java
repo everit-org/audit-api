@@ -16,46 +16,23 @@
  */
 package org.everit.osgi.audit.api.dto;
 
+import java.util.Objects;
+
 public class Application {
 
-    /**
-     * Default serial version UID.
-     */
-    private static final long serialVersionUID = 1L;
-    /**
-     * Application id.
-     */
-    private Long applicationId;
-    /**
-     * Application name.
-     */
-    private String appName;
-    /**
-     * Resource id.
-     */
-    private Long resourceId;
+    private final long applicationId;
 
-    public Application() {
-    }
+    private final String appName;
 
-    /**
-     * Constructor for setting initial parameters.
-     *
-     * @param applicationId
-     *            Id of the application.
-     * @param appName
-     *            Name of the application.
-     * @param resourceId
-     *            ResourceId of the application.
-     */
-    public Application(final Long applicationId, final String appName, final Long resourceId) {
-        super();
+    private final long resourceId;
+
+    public Application(final long applicationId, final String appName, final long resourceId) {
         this.applicationId = applicationId;
-        this.appName = appName;
+        this.appName = Objects.requireNonNull(appName, "appName cannot be null");
         this.resourceId = resourceId;
     }
 
-    public Long getApplicationId() {
+    public long getApplicationId() {
         return applicationId;
     }
 
@@ -63,20 +40,8 @@ public class Application {
         return appName;
     }
 
-    public Long getResourceId() {
+    public long getResourceId() {
         return resourceId;
-    }
-
-    public void setApplicationId(final Long applicationId) {
-        this.applicationId = applicationId;
-    }
-
-    public void setAppName(final String appName) {
-        this.appName = appName;
-    }
-
-    public void setResourceId(final Long resourceId) {
-        this.resourceId = resourceId;
     }
 
 }

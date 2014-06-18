@@ -16,58 +16,33 @@
  */
 package org.everit.osgi.audit.api.dto;
 
-import java.io.Serializable;
+import java.util.Objects;
 
-public class EventType implements Serializable {
-    /**
-     * Default serial version UID.
-     */
-    private static final long serialVersionUID = 1L;
-    // TODO This class is not immutable, thus it implies a security issue.
-    /**
-     * Id of the event type.
-     */
-    private Long id;
-    /**
-     * Name of the event type.
-     */
-    private String name;
+public class EventType {
 
-    /**
-     * Default constructor for jaxb.
-     */
-    protected EventType() {
-        super();
-    }
+    private final long id;
 
-    /**
-     * Constructor with initial parameters.
-     *
-     * @param id
-     *            Id of the event type.
-     * @param name
-     *            Name of the event type.
-     */
-    public EventType(final Long id, final String name) {
+    private final String name;
+
+    private final long applicationId;
+
+    public EventType(final long id, final String name, final long applicationId) {
         super();
         this.id = id;
-        this.name = name;
+        this.name = Objects.requireNonNull(name, "name cannot be null");
+        this.applicationId = applicationId;
     }
 
-    public Long getId() {
+    public long getApplicationId() {
+        return applicationId;
+    }
+
+    public long getId() {
         return id;
     }
 
     public String getName() {
         return name;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
     }
 
 }

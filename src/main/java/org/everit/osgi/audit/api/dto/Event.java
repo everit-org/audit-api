@@ -17,40 +17,34 @@
 package org.everit.osgi.audit.api.dto;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Event {
 
     /**
      * The ID of the event type.
      */
-    private Long id;
+    private final long id;
 
     /**
      * The name of the event type.
      */
-    private String name;
+    private final String name;
 
     /**
      * The name of the application the event belongs to.
      */
-    private String applicationName;
+    private final String applicationName;
 
     /**
      * Timestamp when the event was saved.
      */
-    private Date saveTimeStamp;
+    private final Date saveTimeStamp;
 
     /**
      * The data array belonging to the event.
      */
-    private EventData[] eventDataArray;
-
-    /**
-     * Default constructor for jaxb.
-     */
-    protected Event() {
-        super();
-    }
+    private final EventData[] eventDataArray;
 
     /**
      * Constructor for setting initial parameters.
@@ -66,14 +60,13 @@ public class Event {
      * @param eventDataArray
      *            The event data array for this event.
      */
-    public Event(final Long id, final String name, final String applicationName, final Date saveTimeStamp,
+    public Event(final long id, final String name, final String applicationName, final Date saveTimeStamp,
             final EventData[] eventDataArray) {
-        super();
         this.id = id;
-        this.name = name;
-        this.applicationName = applicationName;
-        this.saveTimeStamp = saveTimeStamp;
-        this.eventDataArray = eventDataArray;
+        this.name = Objects.requireNonNull(name, "name cannot be null");
+        this.applicationName = Objects.requireNonNull(applicationName, "applicationName cannot be null");
+        this.saveTimeStamp = new Date(Objects.requireNonNull(saveTimeStamp, "saveTimeStamp cannot be null").getTime());
+        this.eventDataArray = Objects.requireNonNull(eventDataArray, "eventDataArray cannot be null").clone();
     }
 
     public String getApplicationName() {
@@ -84,7 +77,7 @@ public class Event {
         return eventDataArray;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -93,23 +86,7 @@ public class Event {
     }
 
     public Date getSaveTimeStamp() {
-        return saveTimeStamp;
-    }
-
-    public void setApplicationName(final String applicationName) {
-        this.applicationName = applicationName;
-    }
-
-    public void setEventDataArray(final EventData[] eventDataArray) {
-        this.eventDataArray = eventDataArray;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public void setSaveTimeStamp(final Date saveTimeStamp) {
-        this.saveTimeStamp = saveTimeStamp;
+        return new Date(saveTimeStamp.getTime());
     }
 
 }

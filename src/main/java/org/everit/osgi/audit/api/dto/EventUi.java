@@ -16,55 +16,42 @@
  */
 package org.everit.osgi.audit.api.dto;
 
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 
-public class EventUi implements Serializable {
-    /**
-     * Default serial version UID.
-     */
-    private static final long serialVersionUID = 1L;
+public class EventUi {
     /**
      * Id of the event.
      */
-    private Long id;
+    private final long id;
     /**
      * Name of the event.
      */
-    private String name;
+    private final String name;
     /**
      * The name of the application which the event belongs to.
      */
-    private String applicationName;
+    private final String applicationName;
     /**
      * TimeStamp when the event was saved.
      */
-    private Date saveTimeStamp;
+    private final Date saveTimeStamp;
     /**
      * Map containing the event data.
      */
     private Map<String, EventData> eventData;
 
-    public EventUi() {
-    }
-
-    /**
-     * This constructor is required to handle the different type of saveTimeStamp from the entity.
-     */
-    public EventUi(final Long id, final String name, final String applicationName, final Calendar saveTimeStamp) {
-        this.id = id;
-        this.name = name;
-        this.applicationName = applicationName;
-        this.saveTimeStamp = saveTimeStamp.getTime();
+    public EventUi(final long id, final String name, final String applicationName, final Calendar saveTimeStamp) {
+        this(id, name, applicationName, saveTimeStamp.getTime());
     }
 
     public EventUi(final Long id, final String name, final String applicationName, final Date saveTimeStamp) {
         this.id = id;
-        this.name = name;
-        this.applicationName = applicationName;
-        this.saveTimeStamp = saveTimeStamp;
+        this.name = Objects.requireNonNull(name, "name cannot be null");
+        this.applicationName = Objects.requireNonNull(applicationName, "applicationName cannot be null");
+        this.saveTimeStamp = new Date(saveTimeStamp.getTime());
     }
 
     public String getApplicationName() {
@@ -84,27 +71,7 @@ public class EventUi implements Serializable {
     }
 
     public Date getSaveTimeStamp() {
-        return saveTimeStamp;
-    }
-
-    public void setApplicationName(final String applicationName) {
-        this.applicationName = applicationName;
-    }
-
-    public void setEventData(final Map<String, EventData> eventData) {
-        this.eventData = eventData;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public void setSaveTimeStamp(final Date saveTimeStamp) {
-        this.saveTimeStamp = saveTimeStamp;
+        return new Date(saveTimeStamp.getTime());
     }
 
 }

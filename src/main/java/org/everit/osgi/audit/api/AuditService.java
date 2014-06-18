@@ -37,7 +37,7 @@ public interface AuditService {
      * @throws NullPointerException
      *             if {@code appName} is null
      */
-    void createApplication(String appName);
+    Application createApplication(String appName);
 
     /**
      * Creating an application.
@@ -47,7 +47,7 @@ public interface AuditService {
      * @param resourceId
      *            Id of the resource the application will belong to. If null a new resource will be created.
      */
-    void createApplication(String appName, Long resourceId);
+    Application createApplication(String appName, Long resourceId);
 
     /**
      * Find applications by name.
@@ -55,6 +55,8 @@ public interface AuditService {
      * @param appName
      *            Application name.
      * @return With the Application dto object from the database with the given name.
+     * @throws NullPointerException
+     *             if {@code appName} is {@code null}.
      */
     Application findAppByName(String appName);
 
@@ -74,9 +76,11 @@ public interface AuditService {
      *            Application Id.
      * @param eventName
      *            The name of the event.
-     * @return With the list of EventType dto object the given appId belongs to.
+     * @return EventType dto object the given appId belongs to.
+     * @throws IllegalArgumentException
+     *             is no event type found for the application with the given name.
      */
-    List<EventType> getEventTypeByNameForApplication(Long selectedAppId, String eventName);
+    EventType getEventTypeByNameForApplication(long selectedAppId, String eventName);
 
     /**
      * Get the event types associated with a single application.
@@ -85,7 +89,7 @@ public interface AuditService {
      *            Application Id.
      * @return With the list of EventType dto object the given appId belongs to.
      */
-    List<EventType> getEventTypesByApplication(Long selectedAppId);
+    List<EventType> getEventTypesByApplication(long selectedAppId);
 
     Application getOrCreateApplication(String applicationName);
 
