@@ -29,18 +29,10 @@ import org.everit.osgi.audit.api.dto.Event;
  */
 public interface LoggingService {
 
-    /**
-     * Logging an event.
-     *
-     * @param event
-     *            The event.
-     * @throws EventLoggingException
-     *             If the logging fails.
-     */
     void logEvent(Event event);
 
     /**
-     * Logging an evnt with more params to be able to create auditLog from eg. groovy or any script which can handle
+     * Logging an event with more params to be able to create auditLog from eg. groovy or any script which can handle
      * only primitive types.
      *
      * @param eventName
@@ -49,8 +41,6 @@ public interface LoggingService {
      *            The name of the application.
      * @param eventDataList
      *            The list of the eventData.
-     * @throws EventLoggingException
-     *             If the logging fails.
      */
     void logEvent(String eventName, String appName, List<Map<String, Serializable>> eventDataList);
 

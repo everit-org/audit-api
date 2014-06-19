@@ -23,7 +23,7 @@ import org.everit.osgi.audit.api.dto.EventType;
 import org.everit.osgi.audit.api.dto.EventUi;
 import org.everit.osgi.audit.api.dto.FieldWithType;
 
-public interface AuditService {
+public interface AuditService extends LoggingService {
     /**
      * Audit max result must be lower then this constant.
      */

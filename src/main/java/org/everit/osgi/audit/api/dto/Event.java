@@ -24,7 +24,7 @@ public class Event {
     /**
      * The ID of the event type.
      */
-    private final long id;
+    private final Long id;
 
     /**
      * The name of the event type.
@@ -50,7 +50,7 @@ public class Event {
      * Constructor for setting initial parameters.
      *
      * @param id
-     *            Event id.
+     *            Event id. Can be null.
      * @param name
      *            Event name.
      * @param applicationName
@@ -60,13 +60,17 @@ public class Event {
      * @param eventDataArray
      *            The event data array for this event.
      */
-    public Event(final long id, final String name, final String applicationName, final Date saveTimeStamp,
+    public Event(final Long id, final String name, final String applicationName, final Date saveTimeStamp,
             final EventData[] eventDataArray) {
         this.id = id;
         this.name = Objects.requireNonNull(name, "name cannot be null");
         this.applicationName = Objects.requireNonNull(applicationName, "applicationName cannot be null");
         this.saveTimeStamp = new Date(Objects.requireNonNull(saveTimeStamp, "saveTimeStamp cannot be null").getTime());
         this.eventDataArray = Objects.requireNonNull(eventDataArray, "eventDataArray cannot be null").clone();
+    }
+
+    public Event(final String name, final String applicationName, final EventData[] eventDataArray) {
+        this(null, name, applicationName, new Date(), eventDataArray);
     }
 
     public String getApplicationName() {
@@ -77,7 +81,7 @@ public class Event {
         return eventDataArray;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
