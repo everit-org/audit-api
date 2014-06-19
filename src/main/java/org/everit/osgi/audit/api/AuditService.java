@@ -17,6 +17,7 @@
 package org.everit.osgi.audit.api;
 
 import java.util.List;
+import java.util.Set;
 
 import org.everit.osgi.audit.api.dto.Application;
 import org.everit.osgi.audit.api.dto.EventType;
@@ -118,5 +119,5 @@ public interface AuditService extends LoggingService {
      *            the fields for the event to be read.
      * @return The eventUi dto.
      */
-    EventUi readEvent(final long eventId, final List<String> dataFields);
+    EventUi readEvent(final long eventId, final Set<String> dataFields);
 }
