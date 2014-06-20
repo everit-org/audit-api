@@ -20,12 +20,9 @@ import java.util.Objects;
 
 public class DataFilter {
 
-    /**
-     * Operator for the filter.
-     */
     private final Operator operator;
 
-    private final EventData operand;
+    private final EventData operands;
 
     /**
      * Constructs a {@code DataFilter} with {@link Operator#EQ equivalence operator}.
@@ -36,13 +33,13 @@ public class DataFilter {
         this(Operator.EQ, operand);
     }
 
-    public DataFilter(final Operator operator, final EventData operand) {
+    public DataFilter(final Operator operator, final EventData operands) {
         this.operator = Objects.requireNonNull(operator, "operator cannot be null");
-        this.operand = Objects.requireNonNull(operand, "operand cannot be null");
+        this.operands = Objects.requireNonNull(operands, "operand cannot be null");
     }
 
-    public EventData getOperand() {
-        return operand;
+    public EventData getOperands() {
+        return operands;
     }
 
     public Operator getOperator() {

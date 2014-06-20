@@ -18,37 +18,11 @@ package org.everit.osgi.audit.api.dto;
 
 public class FieldWithType {
 
-    /**
-     * Field name.
-     */
-    private String name;
-    /**
-     * Field type.
-     */
-    private EventDataType type;
+    private final String name;
 
-    private String localizedName;
+    private final EventDataType type;
 
-    /**
-     * Default constructor for jaxb.
-     */
-    public FieldWithType() {
-        super();
-    }
-
-    /**
-     * Constructor with initial parameters.
-     *
-     * @param name
-     *            Name of the field.
-     * @param type
-     *            Type of the field.
-     */
-    public FieldWithType(final String name, final EventDataType type) {
-        super();
-        this.name = name;
-        this.type = type;
-    }
+    private final String localizedName;
 
     /**
      * Constructor with initial parameters.
@@ -77,18 +51,6 @@ public class FieldWithType {
 
     public EventDataType getType() {
         return type;
-    }
-
-    public void setLocalizedName(final String localizedName) {
-        this.localizedName = localizedName;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    public void setType(final EventDataType type) {
-        this.type = type;
     }
 
 }
