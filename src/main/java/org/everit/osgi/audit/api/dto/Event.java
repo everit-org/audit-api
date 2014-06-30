@@ -63,6 +63,10 @@ public class Event {
         this.eventDataArray = Objects.requireNonNull(eventDataArray, "eventDataArray cannot be null").clone();
     }
 
+    public Event(final String name, final String applicationName, final EventData[] eventDataArray) {
+        this(name, applicationName, new Date(), eventDataArray);
+    }
+
     public String getApplicationName() {
         return applicationName;
     }
