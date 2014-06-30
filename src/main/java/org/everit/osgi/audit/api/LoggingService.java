@@ -16,10 +16,6 @@
  */
 package org.everit.osgi.audit.api;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-
 import org.everit.osgi.audit.api.dto.Event;
 
 /**
@@ -30,18 +26,5 @@ import org.everit.osgi.audit.api.dto.Event;
 public interface LoggingService {
 
     void logEvent(Event event);
-
-    /**
-     * Logging an event with more params to be able to create auditLog from eg. groovy or any script which can handle
-     * only primitive types.
-     *
-     * @param eventName
-     *            The name of the event.
-     * @param appName
-     *            The name of the application.
-     * @param eventDataList
-     *            The list of the eventData.
-     */
-    void logEvent(String eventName, String appName, List<Map<String, Serializable>> eventDataList);
 
 }
