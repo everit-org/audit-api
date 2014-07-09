@@ -16,10 +16,7 @@
  */
 package org.everit.osgi.audit.api.dto;
 
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -34,7 +31,7 @@ public class EventUi {
 
         private String appName;
 
-        private Calendar saveTimestamp;
+        private Instant saveTimestamp;
 
         private final Map<String, EventData> eventData = new HashMap<>();
 
@@ -62,15 +59,9 @@ public class EventUi {
             return this;
         }
 
-        public Builder saveTimestamp(final Calendar saveTimestamp) {
+        public Builder saveTimestamp(final Instant saveTimestamp) {
             this.saveTimestamp = saveTimestamp;
             return this;
-        }
-
-        public Builder saveTimestamp(final Timestamp timestamp) {
-            Calendar cal = new GregorianCalendar();
-            cal.setTimeInMillis(timestamp.getTime());
-            return saveTimestamp(cal);
         }
 
         public Builder stringData(final String name, final String data) {
@@ -83,7 +74,7 @@ public class EventUi {
             return this;
         }
 
-        public Builder timestampData(final String name, final Calendar data) {
+        public Builder timestampData(final String name, final Instant data) {
             eventData.put(name, new EventData(name, data));
             return this;
         }
@@ -110,23 +101,18 @@ public class EventUi {
     /**
      * TimeStamp when the event was saved.
      */
-    private final Date saveTimeStamp;
+    private final Instant saveTimeStamp;
     /**
      * Map containing the event data.
      */
     private final Map<String, EventData> eventData;
 
-    public EventUi(final long id, final String name, final String applicationName, final Calendar saveTimeStamp,
-            final Map<String, EventData> eventData) {
-        this(id, name, applicationName, saveTimeStamp.getTime(), eventData);
-    }
-
-    public EventUi(final Long id, final String name, final String applicationName, final Date saveTimeStamp,
+    public EventUi(final long id, final String name, final String applicationName, final Instant saveTimeStamp,
             final Map<String, EventData> eventData) {
         this.id = id;
         this.name = Objects.requireNonNull(name, "name cannot be null");
         this.applicationName = Objects.requireNonNull(applicationName, "applicationName cannot be null");
-        this.saveTimeStamp = new Date(saveTimeStamp.getTime());
+        this.saveTimeStamp = Objects.requireNonNull(saveTimeStamp, "saveTimeStamp cannot be null");
         this.eventData = Objects.requireNonNull(eventData, "eventData cannot be null");
     }
 
@@ -146,8 +132,8 @@ public class EventUi {
         return name;
     }
 
-    public Date getSaveTimeStamp() {
-        return new Date(saveTimeStamp.getTime());
+    public Instant getSaveTimeStamp() {
+        return saveTimeStamp;
     }
 
 }

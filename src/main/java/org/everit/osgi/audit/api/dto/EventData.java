@@ -16,8 +16,7 @@
  */
 package org.everit.osgi.audit.api.dto;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.Instant;
 import java.util.Objects;
 
 public class EventData {
@@ -45,7 +44,7 @@ public class EventData {
     /**
      * Timestamp value of the event data. Used only if the data type is timestamp.
      */
-    private Calendar timestampValue;
+    private Instant timestampValue;
 
     /**
      * Binary value of the event data. Used only if the data type is binary.
@@ -82,19 +81,6 @@ public class EventData {
     }
 
     /**
-     * Constructor for timestamp property.
-     *
-     * @param name
-     *            The name of the property.
-     * @param timestampValue
-     *            The value of the property.
-     */
-    public EventData(final String name, final Calendar timestampValue) {
-        this(name, EventDataType.TIMESTAMP);
-        this.timestampValue = Objects.requireNonNull(timestampValue, "timestampValue cannot be null");
-    }
-
-    /**
      * Constructor for number property.
      *
      * @param name
@@ -116,7 +102,7 @@ public class EventData {
      * Constructor for JPA queries.
      */
     public EventData(final String name, final EventDataType eventDataType, final Double numberValue,
-            final String stringValue, final String textValue, final Calendar timestampValue, final byte[] binaryValue) {
+            final String stringValue, final String textValue, final Instant timestampValue, final byte[] binaryValue) {
         this(name, eventDataType);
         this.numberValue = numberValue;
         if (stringValue != null) {
@@ -128,6 +114,19 @@ public class EventData {
         }
         this.timestampValue = timestampValue;
         this.binaryValue = binaryValue;
+    }
+
+    /**
+     * Constructor for timestamp property.
+     *
+     * @param name
+     *            The name of the property.
+     * @param timestampValue
+     *            The value of the property.
+     */
+    public EventData(final String name, final Instant timestampValue) {
+        this(name, EventDataType.TIMESTAMP);
+        this.timestampValue = Objects.requireNonNull(timestampValue, "timestampValue cannot be null");
     }
 
     /**
@@ -164,10 +163,8 @@ public class EventData {
         return textValue;
     }
 
-    public Calendar getTimestampValue() {
-        GregorianCalendar rval = new GregorianCalendar();
-        rval.setTimeInMillis(timestampValue.getTimeInMillis());
-        return rval;
+    public Instant getTimestampValue() {
+        return timestampValue;
     }
 
 }

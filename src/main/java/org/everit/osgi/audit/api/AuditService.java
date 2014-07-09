@@ -16,7 +16,7 @@
  */
 package org.everit.osgi.audit.api;
 
-import java.util.Calendar;
+import java.time.Instant;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -65,7 +65,7 @@ public interface AuditService extends LoggingService {
     Application findAppByName(String appName);
 
     List<EventUi> findEvents(Long[] selectedAppIds, Long[] selectedEventTypeIds, List<String> dataFields,
-            List<DataFilter> dataFilters, Calendar eventsFrom, Calendar eventsTo, Locale locale, long offset, long limit);
+            List<DataFilter> dataFilters, Instant eventsFrom, Instant eventsTo, Locale locale, long offset, long limit);
 
     /**
      * Get all applications.

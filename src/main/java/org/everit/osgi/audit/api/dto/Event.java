@@ -16,7 +16,7 @@
  */
 package org.everit.osgi.audit.api.dto;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.Objects;
 
 public class Event {
@@ -34,12 +34,16 @@ public class Event {
     /**
      * Timestamp when the event was saved.
      */
-    private final Date saveTimeStamp;
+    private final Instant saveTimeStamp;
 
     /**
      * The data array belonging to the event.
      */
     private final EventData[] eventDataArray;
+
+    public Event(final String name, final String applicationName, final EventData[] eventDataArray) {
+        this(name, applicationName, Instant.now(), eventDataArray);
+    }
 
     /**
      * Constructor for setting initial parameters.
@@ -55,16 +59,12 @@ public class Event {
      * @param eventDataArray
      *            The event data array for this event.
      */
-    public Event(final String name, final String applicationName, final Date saveTimeStamp,
+    public Event(final String name, final String applicationName, final Instant saveTimeStamp,
             final EventData[] eventDataArray) {
         this.name = Objects.requireNonNull(name, "name cannot be null");
         this.applicationName = Objects.requireNonNull(applicationName, "applicationName cannot be null");
-        this.saveTimeStamp = new Date(Objects.requireNonNull(saveTimeStamp, "saveTimeStamp cannot be null").getTime());
+        this.saveTimeStamp = Objects.requireNonNull(saveTimeStamp, "saveTimeStamp cannot be null");
         this.eventDataArray = Objects.requireNonNull(eventDataArray, "eventDataArray cannot be null").clone();
-    }
-
-    public Event(final String name, final String applicationName, final EventData[] eventDataArray) {
-        this(name, applicationName, new Date(), eventDataArray);
     }
 
     public String getApplicationName() {
@@ -79,8 +79,8 @@ public class Event {
         return name;
     }
 
-    public Date getSaveTimeStamp() {
-        return new Date(saveTimeStamp.getTime());
+    public Instant getSaveTimeStamp() {
+        return saveTimeStamp;
     }
 
 }
