@@ -14,24 +14,35 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Audit API.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.audit.api.dto;
+package org.everit.osgi.audit.dto;
 
-public enum Operator {
+import java.util.Objects;
 
-    /**
-     * Operator defining "greater than".
-     */
-    GT,
-    /**
-     * Operator defining "equals".
-     */
-    EQ,
-    /**
-     * Operator defining "less than".
-     */
-    LT,
-    /**
-     * Operator defining "starts with".
-     */
-    STARTS_WITH,
+public class EventType {
+
+    private final long id;
+
+    private final String name;
+
+    private final long applicationId;
+
+    public EventType(final long id, final String name, final long applicationId) {
+        super();
+        this.id = id;
+        this.name = Objects.requireNonNull(name, "name cannot be null");
+        this.applicationId = applicationId;
+    }
+
+    public long getApplicationId() {
+        return applicationId;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
 }

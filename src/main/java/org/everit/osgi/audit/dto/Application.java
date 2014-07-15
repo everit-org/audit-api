@@ -14,36 +14,34 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Audit API.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.audit.api.dto;
+package org.everit.osgi.audit.dto;
 
 import java.util.Objects;
 
-public class DataFilter {
+public class Application {
 
-    private final Operator operator;
+    private final long applicationId;
 
-    private final EventData operands;
+    private final String appName;
 
-    /**
-     * Constructs a {@code DataFilter} with {@link Operator#EQ equivalence operator}.
-     *
-     * @param operand
-     */
-    public DataFilter(final EventData operand) {
-        this(Operator.EQ, operand);
+    private final long resourceId;
+
+    public Application(final long applicationId, final String appName, final long resourceId) {
+        this.applicationId = applicationId;
+        this.appName = Objects.requireNonNull(appName, "appName cannot be null");
+        this.resourceId = resourceId;
     }
 
-    public DataFilter(final Operator operator, final EventData operands) {
-        this.operator = Objects.requireNonNull(operator, "operator cannot be null");
-        this.operands = Objects.requireNonNull(operands, "operand cannot be null");
+    public long getApplicationId() {
+        return applicationId;
     }
 
-    public EventData getOperands() {
-        return operands;
+    public String getAppName() {
+        return appName;
     }
 
-    public Operator getOperator() {
-        return operator;
+    public long getResourceId() {
+        return resourceId;
     }
 
 }

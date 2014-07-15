@@ -14,18 +14,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Audit API.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.audit.api;
+package org.everit.osgi.audit;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import org.everit.osgi.audit.api.dto.Application;
-import org.everit.osgi.audit.api.dto.DataFilter;
-import org.everit.osgi.audit.api.dto.EventType;
-import org.everit.osgi.audit.api.dto.EventUi;
-import org.everit.osgi.audit.api.dto.FieldWithType;
+import org.everit.osgi.audit.dto.Application;
+import org.everit.osgi.audit.dto.DataFilter;
+import org.everit.osgi.audit.dto.EventType;
+import org.everit.osgi.audit.dto.EventUi;
+import org.everit.osgi.audit.dto.FieldWithType;
 
 public interface AuditService extends LoggingService {
     /**

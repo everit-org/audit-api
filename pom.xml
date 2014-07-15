@@ -87,7 +87,7 @@
             <Import-Package>
               *
             </Import-Package>
-            <Export-Package>${project.artifactId};version="1.0.0",${project.artifactId}.dto;version="1.0.0"</Export-Package>
+            <Export-Package>org.everit.osgi.audit;version="1.0.0",org.everit.osgi.audit.dto;version="1.0.0"</Export-Package>
           </instructions>
         </configuration>
       </plugin>

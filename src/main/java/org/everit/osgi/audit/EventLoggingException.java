@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Audit API.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.audit.api;
+package org.everit.osgi.audit;
 
 public class EventLoggingException extends RuntimeException {
     private static final long serialVersionUID = -2804126299700759933L;

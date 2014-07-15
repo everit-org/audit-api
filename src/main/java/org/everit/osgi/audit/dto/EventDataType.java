@@ -14,35 +14,37 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Audit API.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.audit.api.dto;
+package org.everit.osgi.audit.dto;
 
-import java.util.Objects;
+public enum EventDataType {
 
-public class EventType {
+    /**
+     * Number type.
+     */
+    NUMBER,
 
-    private final long id;
+    /**
+     * Short text type (max length is STRING_MAX_LENGTH).
+     */
+    STRING,
 
-    private final String name;
+    /**
+     * Long text type. (Max length 4Gb)
+     */
+    TEXT,
 
-    private final long applicationId;
+    /**
+     * Binary value.
+     */
+    BINARY,
 
-    public EventType(final long id, final String name, final long applicationId) {
-        super();
-        this.id = id;
-        this.name = Objects.requireNonNull(name, "name cannot be null");
-        this.applicationId = applicationId;
-    }
-
-    public long getApplicationId() {
-        return applicationId;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
+    /**
+     * Timestamp value.
+     */
+    TIMESTAMP;
+    /**
+     * String maximum length.
+     */
+    public static final int STRING_MAX_LENGTH = 255;
 
 }

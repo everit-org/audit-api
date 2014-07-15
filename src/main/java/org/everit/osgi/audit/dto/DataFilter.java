@@ -14,37 +14,36 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Audit API.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.audit.api.dto;
+package org.everit.osgi.audit.dto;
 
-public enum EventDataType {
+import java.util.Objects;
 
-    /**
-     * Number type.
-     */
-    NUMBER,
+public class DataFilter {
 
-    /**
-     * Short text type (max length is STRING_MAX_LENGTH).
-     */
-    STRING,
+    private final Operator operator;
+
+    private final EventData operands;
 
     /**
-     * Long text type. (Max length 4Gb)
+     * Constructs a {@code DataFilter} with {@link Operator#EQ equivalence operator}.
+     *
+     * @param operand
      */
-    TEXT,
+    public DataFilter(final EventData operand) {
+        this(Operator.EQ, operand);
+    }
 
-    /**
-     * Binary value.
-     */
-    BINARY,
+    public DataFilter(final Operator operator, final EventData operands) {
+        this.operator = Objects.requireNonNull(operator, "operator cannot be null");
+        this.operands = Objects.requireNonNull(operands, "operand cannot be null");
+    }
 
-    /**
-     * Timestamp value.
-     */
-    TIMESTAMP;
-    /**
-     * String maximum length.
-     */
-    public static final int STRING_MAX_LENGTH = 255;
+    public EventData getOperands() {
+        return operands;
+    }
+
+    public Operator getOperator() {
+        return operator;
+    }
 
 }
