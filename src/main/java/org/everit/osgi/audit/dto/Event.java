@@ -48,8 +48,6 @@ public class Event {
     /**
      * Constructor for setting initial parameters.
      *
-     * @param id
-     *            Event id. Can be null.
      * @param name
      *            Event name.
      * @param applicationName

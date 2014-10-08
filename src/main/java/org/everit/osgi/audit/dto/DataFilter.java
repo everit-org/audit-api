@@ -28,6 +28,7 @@ public class DataFilter {
      * Constructs a {@code DataFilter} with {@link Operator#EQ equivalence operator}.
      *
      * @param operand
+     *            the operand of this filter
      */
     public DataFilter(final EventData operand) {
         this(Operator.EQ, operand);

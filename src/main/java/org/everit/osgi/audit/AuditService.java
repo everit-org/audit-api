@@ -31,13 +31,14 @@ public interface AuditService extends LoggingService {
     /**
      * Audit max result must be lower then this constant.
      */
-    public static final int AUDIT_SEARCH_MAX_RESULT_LIMIT = 200;
+    int AUDIT_SEARCH_MAX_RESULT_LIMIT = 200;
 
     /**
      * Creating an application and assigning to a new resource automatically.
      *
      * @param appName
      *            The unique name of the application.
+     * @return the created {@link Application}
      * @throws NullPointerException
      *             if {@code appName} is null
      */
@@ -50,6 +51,7 @@ public interface AuditService extends LoggingService {
      *            The unique name of the application.
      * @param resourceId
      *            Id of the resource the application will belong to. If null a new resource will be created.
+     * @return the created {@link Application}
      */
     Application createApplication(String appName, Long resourceId);
 
