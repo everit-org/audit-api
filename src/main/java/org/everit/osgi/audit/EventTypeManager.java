@@ -16,14 +16,16 @@
  */
 package org.everit.osgi.audit;
 
+import java.util.List;
+
 import org.everit.osgi.audit.dto.EventType;
 
 public interface EventTypeManager {
 
     EventType getEventTypeByName(String eventTypeName);
 
-    EventType[] getEventTypes();
+    List<EventType> getEventTypes();
 
-    EventType[] getOrCreateEventTypes(String... eventTypeNames);
+    List<EventType> getOrCreateEventTypes(String... eventTypeNames);
 
 }
