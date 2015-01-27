@@ -16,15 +16,13 @@
  */
 package org.everit.osgi.audit;
 
-import org.everit.osgi.audit.dto.Event;
+import org.everit.osgi.audit.dto.AuditEvent;
 
 /**
- *
  * Interface for LoggingServices.
- *
  */
 public interface LoggingService {
 
-    void logEvent(Event event);
+    void logEvent(AuditEvent event);
 
 }

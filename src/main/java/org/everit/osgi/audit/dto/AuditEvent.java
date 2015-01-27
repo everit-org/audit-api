@@ -19,54 +19,41 @@ package org.everit.osgi.audit.dto;
 import java.time.Instant;
 import java.util.Objects;
 
-public class Event {
+public class AuditEvent {
 
     /**
      * The name of the event type.
      */
-    private final String name;
+    private final String eventTypeName;
 
     /**
-     * The name of the application the event belongs to.
+     * Timestamp when the event occured at.
      */
-    private final String applicationName;
-
-    /**
-     * Timestamp when the event was saved.
-     */
-    private final Instant saveTimeStamp;
+    private final Instant occuredAt;
 
     /**
      * The data array belonging to the event.
      */
     private final EventData[] eventDataArray;
 
-    public Event(final String name, final String applicationName, final EventData[] eventDataArray) {
-        this(name, applicationName, Instant.now(), eventDataArray);
+    public AuditEvent(final String eventTypeName, final EventData... eventDataArray) {
+        this(eventTypeName, Instant.now(), eventDataArray);
     }
 
     /**
      * Constructor for setting initial parameters.
      *
-     * @param name
-     *            Event name.
-     * @param applicationName
-     *            Application name.
-     * @param saveTimeStamp
-     *            Timestamp when the event was saved.
+     * @param eventTypeName
+     *            the name of the event type
+     * @param occuredAt
+     *            Timestamp when the event was saved
      * @param eventDataArray
      *            The event data array for this event.
      */
-    public Event(final String name, final String applicationName, final Instant saveTimeStamp,
-            final EventData[] eventDataArray) {
-        this.name = Objects.requireNonNull(name, "name cannot be null");
-        this.applicationName = Objects.requireNonNull(applicationName, "applicationName cannot be null");
-        this.saveTimeStamp = Objects.requireNonNull(saveTimeStamp, "saveTimeStamp cannot be null");
+    public AuditEvent(final String eventTypeName, final Instant occuredAt, final EventData... eventDataArray) {
+        this.eventTypeName = Objects.requireNonNull(eventTypeName, "eventTypeName cannot be null");
+        this.occuredAt = Objects.requireNonNull(occuredAt, "occuredAt cannot be null");
         this.eventDataArray = Objects.requireNonNull(eventDataArray, "eventDataArray cannot be null").clone();
-    }
-
-    public String getApplicationName() {
-        return applicationName;
     }
 
     public EventData[] getEventDataArray() {
@@ -74,11 +61,11 @@ public class Event {
     }
 
     public String getName() {
-        return name;
+        return eventTypeName;
     }
 
-    public Instant getSaveTimeStamp() {
-        return saveTimeStamp;
+    public Instant getOccuredAt() {
+        return occuredAt;
     }
 
 }

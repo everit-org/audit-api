@@ -14,24 +14,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Audit API.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.audit.dto;
+package org.everit.osgi.audit;
 
-public enum Operator {
+import org.everit.osgi.audit.dto.EventType;
 
-    /**
-     * Operator defining "greater than".
-     */
-    GT,
-    /**
-     * Operator defining "equals".
-     */
-    EQ,
-    /**
-     * Operator defining "less than".
-     */
-    LT,
-    /**
-     * Operator defining "starts with".
-     */
-    STARTS_WITH,
+public interface EventTypeManager {
+
+    EventType getEventTypeByName(String eventTypeName);
+
+    EventType[] getEventTypes();
+
+    EventType[] getOrCreateEventTypes(String... eventTypeNames);
+
 }
