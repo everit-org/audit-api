@@ -23,6 +23,6 @@ import org.everit.osgi.audit.dto.AuditEvent;
  */
 public interface LoggingService {
 
-    void logEvent(AuditEvent event);
+    void logEvent(AuditEvent auditEvent);
 
 }
