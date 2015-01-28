@@ -24,17 +24,13 @@ public class EventType {
 
     private final String name;
 
-    private final long applicationId;
+    private final long resourceId;
 
-    public EventType(final long id, final String name, final long applicationId) {
+    public EventType(final long id, final String name, final long resourceId) {
         super();
         this.id = id;
         this.name = Objects.requireNonNull(name, "name cannot be null");
-        this.applicationId = applicationId;
-    }
-
-    public long getApplicationId() {
-        return applicationId;
+        this.resourceId = resourceId;
     }
 
     public long getId() {
@@ -43,6 +39,10 @@ public class EventType {
 
     public String getName() {
         return name;
+    }
+
+    public long getResourceId() {
+        return resourceId;
     }
 
 }
