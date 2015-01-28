@@ -14,35 +14,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Audit API.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.audit.dto;
+package org.everit.osgi.audit;
 
-import java.util.Objects;
+import java.util.List;
 
-public class EventType {
+import org.everit.osgi.audit.dto.AuditEventType;
 
-    private final long id;
+public interface AuditEventTypeManager {
 
-    private final String name;
+    AuditEventType getAuditEventType(String eventTypeName);
 
-    private final long resourceId;
+    List<AuditEventType> getAuditEventTypes();
 
-    public EventType(final long id, final String name, final long resourceId) {
-        super();
-        this.id = id;
-        this.name = Objects.requireNonNull(name, "name cannot be null");
-        this.resourceId = resourceId;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public long getResourceId() {
-        return resourceId;
-    }
+    List<AuditEventType> getOrCreateAuditEventTypes(String... eventTypeNames);
 
 }
