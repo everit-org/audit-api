@@ -22,10 +22,6 @@ import org.everit.osgi.audit.dto.AuditEventType;
 
 public interface AuditEventTypeManager {
 
-    AuditEventType getAuditEventType(String eventTypeName);
-
-    List<AuditEventType> getAuditEventTypes();
-
     List<AuditEventType> getOrCreateAuditEventTypes(String... eventTypeNames);
 
 }

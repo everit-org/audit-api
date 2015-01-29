@@ -20,17 +20,51 @@ import java.util.Objects;
 
 public class AuditEventType {
 
-    private final long id;
+    public static class Builder {
 
-    private final String name;
+        private long id;
 
-    private final long resourceId;
+        private String name;
 
-    public AuditEventType(final long id, final String name, final long resourceId) {
-        super();
-        this.id = id;
-        this.name = Objects.requireNonNull(name, "name cannot be null");
-        this.resourceId = resourceId;
+        private long resourceId;
+
+        public Builder() {
+        }
+
+        public AuditEventType build() {
+            return new AuditEventType(this);
+        }
+
+        public Builder iId(final long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder name(final String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder resourceId(final long resourceId) {
+            this.resourceId = resourceId;
+            return this;
+        }
+
+    }
+
+    public long id;
+
+    public String name;
+
+    public long resourceId;
+
+    public AuditEventType() {
+    }
+
+    private AuditEventType(final Builder builder) {
+        id = builder.id;
+        name = Objects.requireNonNull(builder.name, "name cannot be null");
+        resourceId = builder.resourceId;
     }
 
     @Override
@@ -59,18 +93,6 @@ public class AuditEventType {
             return false;
         }
         return true;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public long getResourceId() {
-        return resourceId;
     }
 
     @Override

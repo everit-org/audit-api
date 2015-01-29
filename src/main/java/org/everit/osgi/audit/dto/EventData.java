@@ -17,154 +17,188 @@
 package org.everit.osgi.audit.dto;
 
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class EventData {
 
+    public static class Builder {
+
+        private final String name;
+
+        private EventDataType eventDataType;
+
+        private double numberValue;
+
+        private String textValue;
+
+        private Instant timestampValue;
+
+        private byte[] binaryValue;
+
+        public Builder(final EventData eventData) {
+            name = eventData.name;
+            eventDataType = eventData.eventDataType;
+            numberValue = eventData.numberValue;
+            textValue = eventData.textValue;
+            timestampValue = eventData.timestampValue;
+            binaryValue = eventData.binaryValue == null ? null :
+                    Arrays.copyOf(eventData.binaryValue, eventData.binaryValue.length);
+        }
+
+        public Builder(final String name) {
+            this.name = Objects.requireNonNull(name, "name cannot be null");
+        }
+
+        public EventData build() {
+            return new EventData(this);
+        }
+
+        public EventData buildBinaryValue(final byte[] binaryValue) {
+            this.binaryValue = binaryValue;
+            eventDataType = EventDataType.BINARY;
+            return new EventData(this);
+        }
+
+        public EventData buildNumberValue(final double numberValue) {
+            this.numberValue = numberValue;
+            eventDataType = EventDataType.NUMBER;
+            return new EventData(this);
+        }
+
+        public EventData buildStringValue(final String stringValue) {
+            textValue = stringValue;
+            eventDataType = EventDataType.STRING;
+            return new EventData(this);
+        }
+
+        /**
+         * @param shortString
+         *            <code>true</code> if the length of the string value is always less than
+         *            org.everit.audit.api.dto.STRING_MAX_LENGTH, <code>false</code> otherwise.
+         */
+        public EventData buildTextValue(final boolean shortString, final String textValue) {
+            this.textValue = textValue;
+            eventDataType = shortString ? EventDataType.STRING : EventDataType.TEXT;
+            return new EventData(this);
+        }
+
+        public EventData buildTimestampValue(final Instant timestampValue) {
+            this.timestampValue = timestampValue;
+            eventDataType = EventDataType.TIMESTAMP;
+            return new EventData(this);
+        }
+
+    }
+
     /**
      * The name of the data element.
      */
-    private final String name;
+    public String name;
 
     /**
      * The type of the event data.
      */
-    private final EventDataType eventDataType;
+    public EventDataType eventDataType;
 
     /**
      * Number value of the event data. Used only if the data type is number.
      */
-    private double numberValue;
+    public double numberValue;
 
     /**
      * Text value of the event data. Used only if the data type is string or text.
      */
-    private String textValue;
+    public String textValue;
 
     /**
      * Timestamp value of the event data. Used only if the data type is timestamp.
      */
-    private Instant timestampValue;
+    public Instant timestampValue;
 
     /**
      * Binary value of the event data. Used only if the data type is binary.
      */
-    private byte[] binaryValue;
+    public byte[] binaryValue;
 
-    /**
-     * Constructor for string property.
-     *
-     * @param name
-     *            The name of the property.
-     * @param shortString
-     *            True, if the length of the string value is always less than
-     *            org.everit.audit.api.dto.STRING_MAX_LENGTH, false otherwise.
-     * @param textValue
-     *            The value of the property.
-     */
-    public EventData(final String name, final boolean shortString, final String textValue) {
-        this(name, shortString ? EventDataType.STRING : EventDataType.TEXT);
-        this.textValue = Objects.requireNonNull(textValue, "textValue cannot be null");
+    public EventData() {
     }
 
-    /**
-     * Constructor for binary property.
-     *
-     * @param name
-     *            The name of the property.
-     * @param binaryValue
-     *            The value of the property.
-     */
-    public EventData(final String name, final byte[] binaryValue) {
-        this(name, EventDataType.BINARY);
-        this.binaryValue = Objects.requireNonNull(binaryValue, "binaryValue cannot be null");
+    private EventData(final Builder builder) {
+        name = builder.name;
+        eventDataType = Objects.requireNonNull(builder.eventDataType, "eventDataType cannot be null");
+        numberValue = builder.numberValue;
+        textValue = builder.textValue;
+        timestampValue = builder.timestampValue;
+        binaryValue = builder.binaryValue == null ? null :
+                Arrays.copyOf(builder.binaryValue, builder.binaryValue.length);
     }
 
-    /**
-     * Constructor for number property.
-     *
-     * @param name
-     *            The name of the property.
-     * @param numberValue
-     *            The value of the property.
-     */
-    public EventData(final String name, final double numberValue) {
-        this(name, EventDataType.NUMBER);
-        this.numberValue = numberValue;
-    }
-
-    private EventData(final String name, final EventDataType eventDataType) {
-        this.name = Objects.requireNonNull(name, "name cannot be null");
-        this.eventDataType = Objects.requireNonNull(eventDataType, "eventDataType cannot be null");
-    }
-
-    /**
-     * Constructor for JPA queries.
-     */
-    public EventData(final String name, final EventDataType eventDataType, final Double numberValue,
-            final String stringValue, final String textValue, final Instant timestampValue, final byte[] binaryValue) {
-        this(name, eventDataType);
-        this.numberValue = numberValue;
-        if (stringValue != null) {
-            this.textValue = stringValue;
-        } else if (textValue != null) {
-            this.textValue = textValue;
-        } else {
-            this.textValue = null;
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
         }
-        this.timestampValue = timestampValue;
-        this.binaryValue = binaryValue;
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        EventData other = (EventData) obj;
+        if (!Arrays.equals(binaryValue, other.binaryValue)) {
+            return false;
+        }
+        if (eventDataType != other.eventDataType) {
+            return false;
+        }
+        if (name == null) {
+            if (other.name != null) {
+                return false;
+            }
+        } else if (!name.equals(other.name)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(numberValue) != Double.doubleToLongBits(other.numberValue)) {
+            return false;
+        }
+        if (textValue == null) {
+            if (other.textValue != null) {
+                return false;
+            }
+        } else if (!textValue.equals(other.textValue)) {
+            return false;
+        }
+        if (timestampValue == null) {
+            if (other.timestampValue != null) {
+                return false;
+            }
+        } else if (!timestampValue.equals(other.timestampValue)) {
+            return false;
+        }
+        return true;
     }
 
-    /**
-     * Constructor for timestamp property.
-     *
-     * @param name
-     *            The name of the property.
-     * @param timestampValue
-     *            The value of the property.
-     */
-    public EventData(final String name, final Instant timestampValue) {
-        this(name, EventDataType.TIMESTAMP);
-        this.timestampValue = Objects.requireNonNull(timestampValue, "timestampValue cannot be null");
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = (prime * result) + Arrays.hashCode(binaryValue);
+        result = (prime * result) + ((eventDataType == null) ? 0 : eventDataType.hashCode());
+        result = (prime * result) + ((name == null) ? 0 : name.hashCode());
+        long temp;
+        temp = Double.doubleToLongBits(numberValue);
+        result = (prime * result) + (int) (temp ^ (temp >>> 32));
+        result = (prime * result) + ((textValue == null) ? 0 : textValue.hashCode());
+        result = (prime * result) + ((timestampValue == null) ? 0 : timestampValue.hashCode());
+        return result;
     }
 
-    /**
-     * Constructor for short string property.
-     *
-     * @param name
-     *            The name of the property.
-     * @param stringValue
-     *            The value of the property. The length of the string value must be less than
-     *            org.everit.audit.api.dto.STRING_MAX_LENGTH.
-     */
-    public EventData(final String name, final String stringValue) {
-        this(name, EventDataType.STRING);
-        textValue = stringValue;
-    }
-
-    public byte[] getBinaryValue() {
-        return binaryValue;
-    }
-
-    public EventDataType getEventDataType() {
-        return eventDataType;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getNumberValue() {
-        return numberValue;
-    }
-
-    public String getTextValue() {
-        return textValue;
-    }
-
-    public Instant getTimestampValue() {
-        return timestampValue;
+    @Override
+    public String toString() {
+        return "EventData [name=" + name + ", eventDataType=" + eventDataType + ", numberValue=" + numberValue
+                + ", textValue=" + textValue + ", timestampValue=" + timestampValue + ", binaryValue="
+                + Arrays.toString(binaryValue) + "]";
     }
 
 }
