@@ -24,7 +24,7 @@ public class EventData {
 
     public static class Builder {
 
-        private final String name;
+        private final String eventDataName;
 
         private EventDataType eventDataType;
 
@@ -37,7 +37,8 @@ public class EventData {
         private byte[] binaryValue;
 
         public Builder(final EventData eventData) {
-            name = eventData.name;
+            Objects.requireNonNull(eventData, "eventData cannot be null");
+            eventDataName = eventData.eventDataName;
             eventDataType = eventData.eventDataType;
             numberValue = eventData.numberValue;
             textValue = eventData.textValue;
@@ -46,8 +47,8 @@ public class EventData {
                     Arrays.copyOf(eventData.binaryValue, eventData.binaryValue.length);
         }
 
-        public Builder(final String name) {
-            this.name = Objects.requireNonNull(name, "name cannot be null");
+        public Builder(final String eventDataName) {
+            this.eventDataName = Objects.requireNonNull(eventDataName, "eventDataName cannot be null");
         }
 
         public EventData build() {
@@ -94,7 +95,7 @@ public class EventData {
     /**
      * The name of the data element.
      */
-    public String name;
+    public String eventDataName;
 
     /**
      * The type of the event data.
@@ -125,13 +126,24 @@ public class EventData {
     }
 
     private EventData(final Builder builder) {
-        name = builder.name;
+        eventDataName = builder.eventDataName;
         eventDataType = Objects.requireNonNull(builder.eventDataType, "eventDataType cannot be null");
         numberValue = builder.numberValue;
         textValue = builder.textValue;
         timestampValue = builder.timestampValue;
         binaryValue = builder.binaryValue == null ? null :
                 Arrays.copyOf(builder.binaryValue, builder.binaryValue.length);
+    }
+
+    public EventData(final EventData original) {
+        Objects.requireNonNull(original, "original cannot be null");
+        eventDataName = original.eventDataName;
+        eventDataType = original.eventDataType;
+        numberValue = original.numberValue;
+        textValue = original.textValue;
+        timestampValue = original.timestampValue;
+        binaryValue = original.binaryValue == null ? null :
+                Arrays.copyOf(original.binaryValue, original.binaryValue.length);
     }
 
     @Override
@@ -152,11 +164,11 @@ public class EventData {
         if (eventDataType != other.eventDataType) {
             return false;
         }
-        if (name == null) {
-            if (other.name != null) {
+        if (eventDataName == null) {
+            if (other.eventDataName != null) {
                 return false;
             }
-        } else if (!name.equals(other.name)) {
+        } else if (!eventDataName.equals(other.eventDataName)) {
             return false;
         }
         if (Double.doubleToLongBits(numberValue) != Double.doubleToLongBits(other.numberValue)) {
@@ -185,7 +197,7 @@ public class EventData {
         int result = 1;
         result = (prime * result) + Arrays.hashCode(binaryValue);
         result = (prime * result) + ((eventDataType == null) ? 0 : eventDataType.hashCode());
-        result = (prime * result) + ((name == null) ? 0 : name.hashCode());
+        result = (prime * result) + ((eventDataName == null) ? 0 : eventDataName.hashCode());
         long temp;
         temp = Double.doubleToLongBits(numberValue);
         result = (prime * result) + (int) (temp ^ (temp >>> 32));
@@ -196,8 +208,8 @@ public class EventData {
 
     @Override
     public String toString() {
-        return "EventData [name=" + name + ", eventDataType=" + eventDataType + ", numberValue=" + numberValue
-                + ", textValue=" + textValue + ", timestampValue=" + timestampValue + ", binaryValue="
+        return "EventData [eventDataName=" + eventDataName + ", eventDataType=" + eventDataType + ", numberValue="
+                + numberValue + ", textValue=" + textValue + ", timestampValue=" + timestampValue + ", binaryValue="
                 + Arrays.toString(binaryValue) + "]";
     }
 

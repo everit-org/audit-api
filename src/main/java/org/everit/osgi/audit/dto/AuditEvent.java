@@ -36,6 +36,7 @@ public class AuditEvent {
         }
 
         public Builder(final AuditEvent auditEvent) {
+            Objects.requireNonNull(auditEvent, "auditEvent cannot be null");
             eventTypeName = auditEvent.eventTypeName;
             occuredAt = auditEvent.occuredAt;
             for (EventData eventData : auditEvent.eventDataArray) {
@@ -43,8 +44,33 @@ public class AuditEvent {
             }
         }
 
+        public Builder addBinaryEventData(final String eventDataName, final byte[] binaryValue) {
+            eventDataList.add(new EventData.Builder(eventDataName).buildBinaryValue(binaryValue));
+            return this;
+        }
+
         public Builder addEventData(final EventData eventData) {
             eventDataList.add(new EventData.Builder(eventData).build());
+            return this;
+        }
+
+        public Builder addNumberEventData(final String eventDataName, final double numberValue) {
+            eventDataList.add(new EventData.Builder(eventDataName).buildNumberValue(numberValue));
+            return this;
+        }
+
+        public Builder addStringEventData(final String eventDataName, final String stringValue) {
+            eventDataList.add(new EventData.Builder(eventDataName).buildStringValue(stringValue));
+            return this;
+        }
+
+        public Builder addTextEventData(final String eventDataName, final boolean shortString, final String textValue) {
+            eventDataList.add(new EventData.Builder(eventDataName).buildTextValue(shortString, textValue));
+            return this;
+        }
+
+        public Builder addTimestampEventData(final String eventDataName, final Instant timestampValue) {
+            eventDataList.add(new EventData.Builder(eventDataName).buildTimestampValue(timestampValue));
             return this;
         }
 
@@ -80,6 +106,19 @@ public class AuditEvent {
     public EventData[] eventDataArray;
 
     public AuditEvent() {
+    }
+
+    public AuditEvent(final AuditEvent original) {
+        Objects.requireNonNull(original, "original cannot be null");
+        eventTypeName = original.eventTypeName;
+        occuredAt = original.occuredAt;
+        int eventDataSize = original.eventDataArray.length;
+        eventDataArray = new EventData[eventDataSize];
+        int i = 0;
+        for (EventData eventData : original.eventDataArray) {
+            eventDataArray[i] = new EventData.Builder(eventData).build();
+            i++;
+        }
     }
 
     private AuditEvent(final Builder builder) {

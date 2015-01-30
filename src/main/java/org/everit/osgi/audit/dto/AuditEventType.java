@@ -22,26 +22,33 @@ public class AuditEventType {
 
     public static class Builder {
 
-        private long id;
+        private long eventTypeId;
 
-        private String name;
+        private String eventTypeName;
 
         private long resourceId;
 
         public Builder() {
         }
 
+        public Builder(final AuditEventType auditEventType) {
+            Objects.requireNonNull(auditEventType, "auditEventType cannot be null");
+            eventTypeId = auditEventType.eventTypeId;
+            eventTypeName = auditEventType.eventTypeName;
+            resourceId = auditEventType.resourceId;
+        }
+
         public AuditEventType build() {
             return new AuditEventType(this);
         }
 
-        public Builder iId(final long id) {
-            this.id = id;
+        public Builder eventTypeId(final long eventTypeId) {
+            this.eventTypeId = eventTypeId;
             return this;
         }
 
-        public Builder name(final String name) {
-            this.name = name;
+        public Builder eventTypeName(final String eventTypeName) {
+            this.eventTypeName = eventTypeName;
             return this;
         }
 
@@ -52,18 +59,25 @@ public class AuditEventType {
 
     }
 
-    public long id;
+    public long eventTypeId;
 
-    public String name;
+    public String eventTypeName;
 
     public long resourceId;
 
     public AuditEventType() {
     }
 
+    public AuditEventType(final AuditEventType original) {
+        Objects.requireNonNull(original, "original cannot be null");
+        eventTypeId = original.eventTypeId;
+        eventTypeName = original.eventTypeName;
+        resourceId = original.resourceId;
+    }
+
     private AuditEventType(final Builder builder) {
-        id = builder.id;
-        name = Objects.requireNonNull(builder.name, "name cannot be null");
+        eventTypeId = builder.eventTypeId;
+        eventTypeName = Objects.requireNonNull(builder.eventTypeName, "name cannot be null");
         resourceId = builder.resourceId;
     }
 
@@ -79,14 +93,14 @@ public class AuditEventType {
             return false;
         }
         AuditEventType other = (AuditEventType) obj;
-        if (id != other.id) {
+        if (eventTypeId != other.eventTypeId) {
             return false;
         }
-        if (name == null) {
-            if (other.name != null) {
+        if (eventTypeName == null) {
+            if (other.eventTypeName != null) {
                 return false;
             }
-        } else if (!name.equals(other.name)) {
+        } else if (!eventTypeName.equals(other.eventTypeName)) {
             return false;
         }
         if (resourceId != other.resourceId) {
@@ -99,15 +113,16 @@ public class AuditEventType {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = (prime * result) + (int) (id ^ (id >>> 32));
-        result = (prime * result) + ((name == null) ? 0 : name.hashCode());
+        result = (prime * result) + (int) (eventTypeId ^ (eventTypeId >>> 32));
+        result = (prime * result) + ((eventTypeName == null) ? 0 : eventTypeName.hashCode());
         result = (prime * result) + (int) (resourceId ^ (resourceId >>> 32));
         return result;
     }
 
     @Override
     public String toString() {
-        return "AuditEventType [id=" + id + ", name=" + name + ", resourceId=" + resourceId + "]";
+        return "AuditEventType [eventTypeId=" + eventTypeId + ", eventTypeName=" + eventTypeName + ", resourceId="
+                + resourceId + "]";
     }
 
 }
