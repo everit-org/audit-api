@@ -44,11 +44,6 @@ public class AuditEvent {
             }
         }
 
-        public Builder addBinaryEventData(final String eventDataName, final byte[] binaryValue) {
-            eventDataList.add(new EventData.Builder(eventDataName).buildBinaryValue(binaryValue));
-            return this;
-        }
-
         public Builder addEventData(final EventData eventData) {
             eventDataList.add(new EventData.Builder(eventData).build());
             return this;

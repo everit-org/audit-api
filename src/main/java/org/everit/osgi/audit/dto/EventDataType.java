@@ -34,11 +34,6 @@ public enum EventDataType {
     TEXT,
 
     /**
-     * Binary value.
-     */
-    BINARY,
-
-    /**
      * Timestamp value.
      */
     TIMESTAMP;

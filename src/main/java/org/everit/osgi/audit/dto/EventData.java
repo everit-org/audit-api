@@ -17,7 +17,6 @@
 package org.everit.osgi.audit.dto;
 
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class EventData {
@@ -34,8 +33,6 @@ public class EventData {
 
         private Instant timestampValue;
 
-        private byte[] binaryValue;
-
         public Builder(final EventData eventData) {
             Objects.requireNonNull(eventData, "eventData cannot be null");
             eventDataName = eventData.eventDataName;
@@ -43,8 +40,6 @@ public class EventData {
             numberValue = eventData.numberValue;
             textValue = eventData.textValue;
             timestampValue = eventData.timestampValue;
-            binaryValue = eventData.binaryValue == null ? null :
-                    Arrays.copyOf(eventData.binaryValue, eventData.binaryValue.length);
         }
 
         public Builder(final String eventDataName) {
@@ -52,12 +47,6 @@ public class EventData {
         }
 
         public EventData build() {
-            return new EventData(this);
-        }
-
-        public EventData buildBinaryValue(final byte[] binaryValue) {
-            this.binaryValue = binaryValue;
-            eventDataType = EventDataType.BINARY;
             return new EventData(this);
         }
 
@@ -117,11 +106,6 @@ public class EventData {
      */
     public Instant timestampValue;
 
-    /**
-     * Binary value of the event data. Used only if the data type is binary.
-     */
-    public byte[] binaryValue;
-
     public EventData() {
     }
 
@@ -131,8 +115,6 @@ public class EventData {
         numberValue = builder.numberValue;
         textValue = builder.textValue;
         timestampValue = builder.timestampValue;
-        binaryValue = builder.binaryValue == null ? null :
-                Arrays.copyOf(builder.binaryValue, builder.binaryValue.length);
     }
 
     public EventData(final EventData original) {
@@ -142,8 +124,6 @@ public class EventData {
         numberValue = original.numberValue;
         textValue = original.textValue;
         timestampValue = original.timestampValue;
-        binaryValue = original.binaryValue == null ? null :
-                Arrays.copyOf(original.binaryValue, original.binaryValue.length);
     }
 
     @Override
@@ -158,9 +138,6 @@ public class EventData {
             return false;
         }
         EventData other = (EventData) obj;
-        if (!Arrays.equals(binaryValue, other.binaryValue)) {
-            return false;
-        }
         if (eventDataType != other.eventDataType) {
             return false;
         }
@@ -195,7 +172,6 @@ public class EventData {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = (prime * result) + Arrays.hashCode(binaryValue);
         result = (prime * result) + ((eventDataType == null) ? 0 : eventDataType.hashCode());
         result = (prime * result) + ((eventDataName == null) ? 0 : eventDataName.hashCode());
         long temp;
@@ -209,8 +185,6 @@ public class EventData {
     @Override
     public String toString() {
         return "EventData [eventDataName=" + eventDataName + ", eventDataType=" + eventDataType + ", numberValue="
-                + numberValue + ", textValue=" + textValue + ", timestampValue=" + timestampValue + ", binaryValue="
-                + Arrays.toString(binaryValue) + "]";
+                + numberValue + ", textValue=" + textValue + ", timestampValue=" + timestampValue + "]";
     }
-
 }
