@@ -44,6 +44,6 @@ public enum EventDataType {
     /**
      * String maximum length.
      */
-    public static final int STRING_MAX_LENGTH = 255;
+    public static final int STRING_MAX_LENGTH = 2000;
 
 }

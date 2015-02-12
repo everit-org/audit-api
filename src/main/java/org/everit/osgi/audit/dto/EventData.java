@@ -70,6 +70,11 @@ public class EventData {
         }
 
         public EventData buildStringValue(final String stringValue) {
+            if (stringValue.length() > EventDataType.STRING_MAX_LENGTH) {
+                throw new IllegalArgumentException("too long ["
+                        + stringValue.length() + "] string value provided, the maximum supported is ["
+                        + EventDataType.STRING_MAX_LENGTH + "]");
+            }
             textValue = stringValue;
             eventDataType = EventDataType.STRING;
             return new EventData(this);
