@@ -16,6 +16,9 @@
  */
 package org.everit.osgi.audit.dto;
 
+/**
+ * The supported types of the {@link EventData}.
+ */
 public enum EventDataType {
 
     /**
@@ -37,6 +40,7 @@ public enum EventDataType {
      * Timestamp value.
      */
     TIMESTAMP;
+
     /**
      * String maximum length.
      */

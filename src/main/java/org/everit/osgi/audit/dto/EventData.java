@@ -19,8 +19,15 @@ package org.everit.osgi.audit.dto;
 import java.time.Instant;
 import java.util.Objects;
 
+/**
+ * The event data belonging to the audit event.
+ */
 public class EventData {
 
+    /**
+     * Builder class to create event data easily. This is not a typical builder class, because onece the value is
+     * defined the EventData is built.
+     */
     public static class Builder {
 
         private final String eventDataName;
@@ -33,6 +40,12 @@ public class EventData {
 
         private Instant timestampValue;
 
+        /**
+         * Deep copy constructor.
+         *
+         * @param eventData
+         *            the original event data to copy deeply, cannot be <code>null</code>.
+         */
         public Builder(final EventData eventData) {
             Objects.requireNonNull(eventData, "eventData cannot be null");
             eventDataName = eventData.eventDataName;
@@ -106,6 +119,9 @@ public class EventData {
      */
     public Instant timestampValue;
 
+    /**
+     * Default constructor.
+     */
     public EventData() {
     }
 
@@ -117,6 +133,12 @@ public class EventData {
         timestampValue = builder.timestampValue;
     }
 
+    /**
+     * Deep copy constructor.
+     *
+     * @param original
+     *            the original instance to copy deeply, cannot be <code>null</code>.
+     */
     public EventData(final EventData original) {
         Objects.requireNonNull(original, "original cannot be null");
         eventDataName = original.eventDataName;

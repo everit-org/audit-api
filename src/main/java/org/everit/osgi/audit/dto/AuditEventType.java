@@ -18,8 +18,14 @@ package org.everit.osgi.audit.dto;
 
 import java.util.Objects;
 
+/**
+ * The type of audit event.
+ */
 public class AuditEventType {
 
+    /**
+     * Builder class to create audit event type easily.
+     */
     public static class Builder {
 
         private long eventTypeId;
@@ -28,9 +34,18 @@ public class AuditEventType {
 
         private long resourceId;
 
+        /**
+         * Default constructor.
+         */
         public Builder() {
         }
 
+        /**
+         * Deep copy constructor.
+         *
+         * @param auditEventType
+         *            the original audit event type to copy deeply, cannot be <code>null</code>.
+         */
         public Builder(final AuditEventType auditEventType) {
             Objects.requireNonNull(auditEventType, "auditEventType cannot be null");
             eventTypeId = auditEventType.eventTypeId;
@@ -59,15 +74,33 @@ public class AuditEventType {
 
     }
 
+    /**
+     * The identifier of the event type.
+     */
     public long eventTypeId;
 
+    /**
+     * The name of the event type.
+     */
     public String eventTypeName;
 
+    /**
+     * The resource ID belonging to the event type.
+     */
     public long resourceId;
 
+    /**
+     * Default constructor.
+     */
     public AuditEventType() {
     }
 
+    /**
+     * Deep copy constructor.
+     *
+     * @param original
+     *            the original instance to copy deeply, cannot be <code>null</code>.
+     */
     public AuditEventType(final AuditEventType original) {
         Objects.requireNonNull(original, "original cannot be null");
         eventTypeId = original.eventTypeId;

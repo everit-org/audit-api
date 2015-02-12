@@ -22,8 +22,27 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The audit event that can be logged.
+ */
 public class AuditEvent {
 
+    /**
+     * Builder class to build the audit event easily. For example:<br>
+     * <br>
+     * <blockquote>
+     *
+     * <pre>
+     * AuditEvent event = new AuditEvent.Builder().eventTypeName(&quot;myEvent&quot;)
+     *         .addStringEventData(&quot;name&quot;, &quot;John&quot;)
+     *         .addTextEventData(&quot;description&quot;, false, &quot;lorem ipsum&quot;)
+     *         .addNumberEventData(&quot;age&quot;, 18)
+     *         .addTimestampEventData(&quot;registered&quot;, Instant.now())
+     *         .build();
+     * </pre>
+     *
+     * </blockquote>
+     */
     public static class Builder {
 
         private String eventTypeName;
@@ -32,9 +51,18 @@ public class AuditEvent {
 
         private final List<EventData> eventDataList = new ArrayList<EventData>();
 
+        /**
+         * Default constructor.
+         */
         public Builder() {
         }
 
+        /**
+         * Deep copy constructor.
+         *
+         * @param auditEvent
+         *            the original AuditEvent to copy deeply, cannot be <code>null</code>.
+         */
         public Builder(final AuditEvent auditEvent) {
             Objects.requireNonNull(auditEvent, "auditEvent cannot be null");
             eventTypeName = auditEvent.eventTypeName;
@@ -100,9 +128,18 @@ public class AuditEvent {
      */
     public EventData[] eventDataArray;
 
+    /**
+     * Default constructor.
+     */
     public AuditEvent() {
     }
 
+    /**
+     * Deep copy constructor.
+     *
+     * @param original
+     *            the original instance to copy deeply, cannot be <code>null</code>.
+     */
     public AuditEvent(final AuditEvent original) {
         Objects.requireNonNull(original, "original cannot be null");
         eventTypeName = original.eventTypeName;
