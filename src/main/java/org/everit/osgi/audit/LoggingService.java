@@ -19,10 +19,18 @@ package org.everit.osgi.audit;
 import org.everit.osgi.audit.dto.AuditEvent;
 
 /**
- * Interface for LoggingServices.
+ * Interface for logging {@link AuditEvent}s.
  */
 public interface LoggingService {
 
+    /**
+     * Persists the given audit event to the event store. For e.g. to database, file, etc.
+     *
+     * @param auditEvent
+     *            the event to persist, cannot be <code>null</code>
+     * @throws NullPointerException
+     *             if the <code>auditEvent</code> parameter is <code>null</code>.
+     */
     void logEvent(AuditEvent auditEvent);
 
 }

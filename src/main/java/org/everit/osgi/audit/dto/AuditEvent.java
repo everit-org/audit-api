@@ -30,7 +30,7 @@ public class AuditEvent {
 
         private Instant occuredAt = Instant.now();
 
-        private final List<EventData> eventDataList = new ArrayList<>();
+        private final List<EventData> eventDataList = new ArrayList<EventData>();
 
         public Builder() {
         }
