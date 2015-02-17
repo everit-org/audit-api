@@ -16,8 +16,6 @@
  */
 package org.everit.osgi.audit;
 
-import java.util.List;
-
 import org.everit.osgi.audit.dto.AuditEventType;
 
 /**
@@ -26,16 +24,13 @@ import org.everit.osgi.audit.dto.AuditEventType;
 public interface AuditEventTypeManager {
 
     /**
-     * Lazily creates the {@link AuditEventType}s by their names.
+     * Creates the {@link AuditEventType}s by their names. If an event type already exists, it will be skipped.
      *
      * @param eventTypeNames
-     *            the names of the audit events to create lazily. If an empty array is provided an empty list will be
-     *            returned.
-     * @return the list of the lazily created event types. The size of the returned list will be the same as the length
-     *         of the provided array and the elements are in the same order.
+     *            the names of the audit events to create lazily.
      * @throws NullPointerException
      *             if <code>null</code> array or an array with <code>null</code> element is provided
      */
-    List<AuditEventType> getOrCreateAuditEventTypes(String... eventTypeNames);
+    void initAuditEventTypes(String... eventTypeNames);
 
 }
