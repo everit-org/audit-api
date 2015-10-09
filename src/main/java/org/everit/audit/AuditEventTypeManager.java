@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.everit.osgi.audit;
-
-import org.everit.osgi.audit.dto.AuditEvent;
+package org.everit.audit;
 
 /**
- * Interface for logging {@link AuditEvent}s.
+ * Interface for managing {@link org.everit.audit.dto.AuditEventType}s.
  */
-public interface LoggingService {
+public interface AuditEventTypeManager {
 
   /**
-   * Persists the given audit event to the event store. For e.g. to database, file, etc.
+   * Creates the {@link org.everit.audit.dto.AuditEventType}s by their names. If an event type
+   * already exists, it will be skipped.
    *
-   * @param auditEvent
-   *          the event to persist, cannot be <code>null</code>
+   * @param eventTypeNames
+   *          the names of the audit events to create lazily.
    * @throws NullPointerException
-   *           if the <code>auditEvent</code> parameter is <code>null</code>.
+   *           if <code>null</code> array or an array with <code>null</code> element is provided
    */
-  void logEvent(AuditEvent auditEvent);
+  void initAuditEventTypes(String... eventTypeNames);
 
 }

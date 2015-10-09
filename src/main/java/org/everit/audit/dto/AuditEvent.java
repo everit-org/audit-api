@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.everit.osgi.audit.dto;
+package org.everit.audit.dto;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -46,11 +46,11 @@ public class AuditEvent {
    */
   public static class Builder {
 
+    private final List<EventData> eventDataList = new ArrayList<EventData>();
+
     private String eventTypeName;
 
     private Instant occuredAt = Instant.now();
-
-    private final List<EventData> eventDataList = new ArrayList<EventData>();
 
     /**
      * Default constructor.
@@ -132,6 +132,11 @@ public class AuditEvent {
   }
 
   /**
+   * The data array belonging to the event.
+   */
+  public EventData[] eventDataArray;
+
+  /**
    * The name of the event type.
    */
   public String eventTypeName;
@@ -140,11 +145,6 @@ public class AuditEvent {
    * Timestamp when the event occured at.
    */
   public Instant occuredAt;
-
-  /**
-   * The data array belonging to the event.
-   */
-  public EventData[] eventDataArray;
 
   /**
    * Default constructor.
@@ -229,6 +229,7 @@ public class AuditEvent {
   }
 
   @Override
+  @Generated("eclipse")
   public String toString() {
     return "AuditEvent [eventTypeName=" + eventTypeName + ", occuredAt=" + occuredAt
         + ", eventDataArray="
